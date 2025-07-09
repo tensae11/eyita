@@ -1,20 +1,31 @@
-import type { Metadata } from 'next'
-import './globals.css'
+// SEO metadata
+export const metadata = {
+  title: "Movie Stream",
+  description: "Stream and manage your favorite movies and videos.",
+};
 
-export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
-}
+import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
+import "@/app/globals.css";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased bg-white dark:bg-black">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+        <Analytics />
+      </body>
     </html>
-  )
+  );
 }
